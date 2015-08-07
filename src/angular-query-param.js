@@ -9,6 +9,11 @@
     this.set = function set(key, value) {
       $location.search(key, value);
     };
+
+    this.get = function get(key) {
+      var params = $location.search();
+      return params[key];
+    };
   }
 
 })();

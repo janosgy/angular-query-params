@@ -24,4 +24,14 @@ describe('angularQueryParam', function () {
     expect($location.search).toHaveBeenCalledWith(key, value);
   });
 
+  it('should get a simple parameter from the url', function () {
+    var key = 'testParam',
+      value = 'testValue',
+      mockSearch = {};
+    mockSearch[key] = value;
+    spyOn($location, 'search').and.returnValue(mockSearch);
+
+    expect(queryParam.get(key)).toEqual(value);
+  });
+
 });
