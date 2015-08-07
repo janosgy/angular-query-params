@@ -15,4 +15,13 @@ describe('angularQueryParam', function () {
     expect(queryParam).toBeDefined();
   });
 
+  it('should set a simple parameter to the url', function () {
+    var key = 'testParam',
+      value = 'testValue';
+    spyOn($location, 'search');
+
+    queryParam.set(key, value);
+    expect($location.search).toHaveBeenCalledWith(key, value);
+  });
+
 });

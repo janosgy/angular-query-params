@@ -3,10 +3,12 @@
   'use strict';
 
   angular.module('angularQueryParam', [])
-    .service('queryParam', queryParam);
+    .service('queryParam', QueryParam);
 
-  function queryParam() {
-
+  function QueryParam($location) {
+    this.set = function set(key, value) {
+      $location.search(key, value);
+    };
   }
 
 })();
