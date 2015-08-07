@@ -35,4 +35,15 @@ describe('angularQueryParam', function () {
     expect(queryParam.get(value)).toBeUndefined();
   });
 
+  it('should tell if a key is set', function () {
+    var key = 'testParam',
+      value = 'testValue',
+      mockSearch = {};
+    mockSearch[key] = value;
+    spyOn($location, 'search').and.returnValue(mockSearch);
+
+    expect(queryParam.has(key)).toBe(true);
+    expect(queryParam.has(value)).toBe(false);
+  });
+
 });

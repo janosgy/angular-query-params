@@ -14,6 +14,10 @@
       var params = $location.search();
       return params[key];
     };
+
+    this.has = function has(key) {
+      return !!this.get(key);
+    };
   }
 
 })();
