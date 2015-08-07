@@ -32,6 +32,7 @@ describe('angularQueryParam', function () {
     spyOn($location, 'search').and.returnValue(mockSearch);
 
     expect(queryParam.get(key)).toEqual(value);
+    expect(queryParam.get(value)).toBeUndefined();
   });
 
 });
