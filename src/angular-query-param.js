@@ -19,6 +19,10 @@
       var currentValue = this.get(key);
       return !!value ?  currentValue === value : !!currentValue;
     };
+
+    this.remove = function remove(key) {
+      this.set(key);
+    };
   }
 
 })();
