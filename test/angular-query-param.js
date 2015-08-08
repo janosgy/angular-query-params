@@ -58,7 +58,7 @@ describe('angularQueryParam', function () {
     it('should remove a parameter from the url', function () {
       spyOn($location, 'search');
 
-      expect(queryParam.remove(key));
+      queryParam.remove(key);
       expect($location.search).toHaveBeenCalledWith(key, undefined);
     });
 
