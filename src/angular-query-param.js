@@ -13,6 +13,11 @@
     this.push = function push(key, value) {
       var values;
 
+      if(angular.isArray(value)) {
+        angular.forEach(value, this.push.bind(this, key));
+        return;
+      }
+
       if(this.has(key, value)) {
         return;
       }
