@@ -65,68 +65,67 @@ describe('angularQueryParam', function () {
       queryParam.remove(key);
       expect($location.search).toHaveBeenCalledWith(key, undefined);
     });
+  });
 
+  describe('with an array', function () {
+    var key,
+      value;
 
-    describe('with an array', function() {
-      var key,
-        value;
+    beforeEach(function () {
+      key = 'testParam';
+      value = 'testValue';
+    });
 
-      beforeEach(function () {
-        key = 'testParam';
-        value = 'testValue';
-      });
+    it('should push parameters to the url', function () {
+      spyOn($location, 'search').and.callThrough();
 
-      it('should push parameters to the url', function () {
-        spyOn($location, 'search').and.callThrough();
+      queryParam.set(key, value + 1);
+      queryParam.push(key, value + 2);
+      expect($location.search).toHaveBeenCalledWith(key, [value + 1, value + 2]);
 
-        queryParam.set(key, value + 1);
-        queryParam.push(key, value + 2);
-        expect($location.search).toHaveBeenCalledWith(key, [value + 1, value + 2]);
+      queryParam.push(key, value + 3);
+      expect($location.search).toHaveBeenCalledWith(key, [value + 1, value + 2, value + 3]);
+    });
 
-        queryParam.push(key, value + 3);
-        expect($location.search).toHaveBeenCalledWith(key, [value + 1, value + 2,  value + 3]);
-      });
+    it('should push single parameter to the url', function () {
+      spyOn($location, 'search').and.callThrough();
 
-      it('should push single parameter to the url', function () {
-        spyOn($location, 'search').and.callThrough();
+      queryParam.push(key, value + 1);
+      expect($location.search).toHaveBeenCalledWith(key, value + 1);
+    });
 
-        queryParam.push(key, value + 1);
-        expect($location.search).toHaveBeenCalledWith(key, value + 1);
-      });
+    it('should push array as parameter values to the url', function () {
+      spyOn($location, 'search').and.callThrough();
 
-      it('should push array as parameter values to the url', function () {
-        spyOn($location, 'search').and.callThrough();
+      queryParam.push(key, [value + 1, value + 2, value + 3]);
+      expect($location.search).toHaveBeenCalledWith(key, [value + 1, value + 2, value + 3]);
+    });
 
-        queryParam.push(key, [value + 1, value + 2, value + 3]);
-        expect($location.search).toHaveBeenCalledWith(key, [value + 1, value + 2,  value + 3]);
-      });
+    it('should not push parameter to the url if that parameter is already exists', function () {
+      spyOn($location, 'search').and.callThrough();
 
-      it('should not push parameter to the url if that parameter is already exists', function () {
-        spyOn($location, 'search').and.callThrough();
+      queryParam.push(key, value);
+      expect($location.search).toHaveBeenCalledWith(key, value);
 
-        queryParam.push(key, value);
-        expect($location.search).toHaveBeenCalledWith(key, value);
+      queryParam.push(key, value);
+      expect($location.search).toHaveBeenCalledWith(key, value);
+    });
 
-        queryParam.push(key, value);
-        expect($location.search).toHaveBeenCalledWith(key, value);
-      });
+    it('should remove a parameter from array parameters on a specified key', function () {
+      queryParam.push(key, value + 1);
+      queryParam.push(key, value + 2);
 
-      it('should remove a parameter from array parameters on a specified key', function() {
-        queryParam.push(key, value + 1);
-        queryParam.push(key, value + 2);
+      queryParam.remove(key, value + 1);
+      expect(queryParam.get(key)).toEqual(value + 2);
+    });
 
-        queryParam.remove(key, value + 1);
-        expect(queryParam.get(key)).toEqual(value + 2);
-      });
+    it('should remove multiple parameters from array parameters on a specified key', function () {
+      queryParam.push(key, value + 1);
+      queryParam.push(key, value + 2);
+      queryParam.push(key, value + 3);
 
-      it('should remove multiple parameters from array parameters on a specified key', function() {
-        queryParam.push(key, value + 1);
-        queryParam.push(key, value + 2);
-        queryParam.push(key, value + 3);
-
-        queryParam.remove(key, [value + 2, value + 3]);
-        expect(queryParam.get(key)).toEqual(value + 1);
-      });
+      queryParam.remove(key, [value + 2, value + 3]);
+      expect(queryParam.get(key)).toEqual(value + 1);
     });
   });
 
