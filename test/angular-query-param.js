@@ -15,6 +15,10 @@ describe('angularQueryParam', function () {
     expect(queryParam).toBeDefined();
   });
 
+  it('should throw an error if no key given to set', function () {
+    expect(queryParam.set).toThrowError(TypeError);
+  });
+
   describe('with single item', function () {
     var key,
       value,

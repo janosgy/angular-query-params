@@ -7,6 +7,10 @@
 
   function QueryParam($location) {
     this.set = function set(key, value) {
+      if(!key) {
+        throw new TypeError('Missing argument: key');
+      }
+
       if(angular.isArray(value) && value.length === 1) {
         value = value[0];
       }
