@@ -72,7 +72,7 @@ describe('angularQueryParam', function () {
         value = 'testValue';
       });
 
-      it('should push items to the url', function () {
+      it('should push parameters to the url', function () {
         spyOn($location, 'search').and.callThrough();
 
         queryParam.push(key, value + 1);
@@ -83,6 +83,16 @@ describe('angularQueryParam', function () {
 
         queryParam.push(key, value + 3);
         expect($location.search).toHaveBeenCalledWith(key, [value + 1, value + 2,  value + 3]);
+      });
+
+      it('should not push parameter to the url if that parameter is already exists', function () {
+        spyOn($location, 'search').and.callThrough();
+
+        queryParam.push(key, value);
+        expect($location.search).toHaveBeenCalledWith(key, [value]);
+
+        queryParam.push(key, value);
+        expect($location.search).toHaveBeenCalledWith(key, [value]);
       });
 
     });

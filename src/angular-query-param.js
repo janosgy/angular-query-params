@@ -11,8 +11,13 @@
     };
 
     this.push = function push(key, value) {
-      var values = this.get(key) || [];
+      var values;
 
+      if(this.has(key, value)) {
+        return;
+      }
+
+      values = this.get(key) || [];
       if(!angular.isArray(values)) {
         values = [values];
       }
@@ -28,7 +33,12 @@
 
     this.has = function has(key, value) {
       var currentValue = this.get(key);
-      return !!value ?  currentValue === value : !!currentValue;
+
+      if(!value) {
+        return !!currentValue;
+      }
+
+      return angular.isArray(currentValue) ? currentValue.indexOf(value) !== -1 : currentValue === value;
     };
 
     this.remove = function remove(key) {
