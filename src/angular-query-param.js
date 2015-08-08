@@ -52,6 +52,11 @@
     this.remove = function remove(key, value) {
       var values;
 
+      if(angular.isArray(value)) {
+        angular.forEach(value, this.remove.bind(this, key));
+        return;
+      }
+
       if(!value) {
         this.set(key);
         return;

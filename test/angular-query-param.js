@@ -114,6 +114,15 @@ describe('angularQueryParam', function () {
         queryParam.remove(key, value + 1);
         expect(queryParam.get(key)).toEqual(value + 2);
       });
+
+      it('should remove multiple parameters from array parameters on a specified key', function() {
+        queryParam.push(key, value + 1);
+        queryParam.push(key, value + 2);
+        queryParam.push(key, value + 3);
+
+        queryParam.remove(key, [value + 2, value + 3]);
+        expect(queryParam.get(key)).toEqual(value + 1);
+      });
     });
   });
 
