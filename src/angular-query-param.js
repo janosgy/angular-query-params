@@ -7,6 +7,9 @@
 
   function QueryParam($location) {
     this.set = function set(key, value) {
+      if(angular.isArray(value) && value.length === 1) {
+        value = value[0];
+      }
       $location.search(key, value);
     };
 
@@ -46,8 +49,20 @@
       return angular.isArray(currentValue) ? currentValue.indexOf(value) !== -1 : currentValue === value;
     };
 
-    this.remove = function remove(key) {
-      this.set(key);
+    this.remove = function remove(key, value) {
+      var values;
+
+      if(!value) {
+        this.set(key);
+        return;
+      }
+
+      values = this.get(key) || [];
+      values = values.filter(function(paramValue) {
+        return paramValue !== value;
+      });
+
+      this.set(key, values);
     };
   }
 
