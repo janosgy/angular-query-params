@@ -10,6 +10,17 @@
       $location.search(key, value);
     };
 
+    this.push = function push(key, value) {
+      var values = this.get(key) || [];
+
+      if(!angular.isArray(values)) {
+        values = [values];
+      }
+      values.push(value);
+
+      this.set(key, values);
+    };
+
     this.get = function get(key) {
       var params = $location.search();
       return params[key];

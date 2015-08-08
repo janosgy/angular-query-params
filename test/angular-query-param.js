@@ -62,6 +62,30 @@ describe('angularQueryParam', function () {
       expect($location.search).toHaveBeenCalledWith(key, undefined);
     });
 
+
+    describe('with an array', function() {
+      var key,
+        value;
+
+      beforeEach(function () {
+        key = 'testParam';
+        value = 'testValue';
+      });
+
+      it('should push items to the url', function () {
+        spyOn($location, 'search').and.callThrough();
+
+        queryParam.push(key, value + 1);
+        expect($location.search).toHaveBeenCalledWith(key, [value + 1]);
+
+        queryParam.push(key, value + 2);
+        expect($location.search).toHaveBeenCalledWith(key, [value + 1, value + 2]);
+
+        queryParam.push(key, value + 3);
+        expect($location.search).toHaveBeenCalledWith(key, [value + 1, value + 2,  value + 3]);
+      });
+
+    });
   });
 
 
