@@ -35,7 +35,7 @@ Add a query parameter to the url
 Always set value of a key
 ```js
 queryParam.set('key', 'value'); // => ?key=value
-queryParam.set('key', ['value1', 'value2']); // => ?key=value1,value2
+queryParam.set('key', ['value1', 'value2']); // => ?key=value1&key=value2
 ```
 
 Get a query parameter from the url
@@ -47,15 +47,15 @@ queryParam.set('key2'); // ?key=value => undefined
 
 Remove a query parameter from the url
 ```js
-queryParam.remove('key', 'value'); // ?key=value&key2=value2 => //?key2=value2, ?key=value,value2 => ?key=value
-queryParam.remove('key', ['value1', 'value2']); // ?key=value1,value2,value3 => ?key=value3
+queryParam.remove('key', 'value'); // ?key=value&key2=value2 => //?key2=value2 , ?key=value&key=value2 => ?key=value
+queryParam.remove('key', ['value1', 'value2']); // ?key=value1&key=value2&key=value3 => ?key=value3
 ```
 
 Push a query parameter to the url
 Add a value to a key
 ```js
 queryParam.push('key', 'value'); // => ?key=value
-queryParam.push('key', 'value2'); // ?key=value => ?key=value1,value2
+queryParam.push('key', 'value2'); // ?key=value => ?key=value1&key=value2
 ```
 
 Is a parameter set at the url (with a value)
