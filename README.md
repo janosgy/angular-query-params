@@ -1,69 +1,69 @@
-# angular-query-param
+# angular-query-params
 -----------
 
 An AngularJS service that wraps $location.search with own, simple methods
 
-[![Codeship Status for ins87/angular-query-param](https://www.codeship.io/projects/188c6a90-20f6-0133-385e-5ae45cb2c8e5/status?branch=master)](https://www.codeship.io/projects/95752)
+[![Codeship Status for ins87/angular-query-params](https://www.codeship.io/projects/188c6a90-20f6-0133-385e-5ae45cb2c8e5/status?branch=master)](https://www.codeship.io/projects/95752)
 
 
 Installation
 ------------
 You can choose your preferred method of installation:
-* Through bower: `bower install angular-query-param --save`
-* Through npm: `npm install angular-query-param --save`
-* Download from github: [unminified version](https://raw.github.com/ins87/angular-query-param/master/dist/angular-query-param.js) or [minified version](https://raw.github.com/ins87/angular-query-param/master/dist/angular-query-param.min.js)
+* Through bower: `bower install angular-query-params --save`
+* Through npm: `npm install angular-query-params --save`
+* Download from github: [unminified version](https://raw.github.com/ins87/angular-query-params/master/dist/angular-query-params.js) or [minified version](https://raw.github.com/ins87/angular-query-params/master/dist/angular-query-params.min.js)
 
 Usage
 -----
-Include angular-query-param.js in your application.
+Include angular-query-params.js in your application.
 
 ```html
-<script src="components/angular-query-param/dist/angular-query-param.js"></script>
+<script src="components/angular-query-params/dist/angular-query-params.js"></script>
 ```
 
-Add the module `angularQueryParam` as a dependency to your module:
+Add the module `angularQueryParams` as a dependency to your module:
 
 ```js
-angular.module('myApp', ['angularQueryParam']);
+angular.module('myApp', ['angularQueryParams']);
 
-// Inject angularQueryParam into your controller (or service, etc..)
-angular.module('myApp').controller('MyCtrl', function(queryParam) {
+// Inject angularQueryParams into your controller (or service, etc..)
+angular.module('myApp').controller('MyCtrl', function(queryParams) {
 });
 ```
 
 Add a query parameter to the url
 Always set value of a key
 ```js
-queryParam.set('key', 'value'); // => ?key=value
-queryParam.set('key', ['value1', 'value2']); // => ?key=value1&key=value2
+queryParams.set('key', 'value'); // => ?key=value
+queryParams.set('key', ['value1', 'value2']); // => ?key=value1&key=value2
 ```
 
 Get a query parameter from the url
 Always set value of a key
 ```js
-queryParam.get('key'); // ?key=value => 'value'
-queryParam.set('key2'); // ?key=value => undefined
+queryParams.get('key'); // ?key=value => 'value'
+queryParams.set('key2'); // ?key=value => undefined
 ```
 
 Remove a query parameter from the url
 ```js
-queryParam.remove('key', 'value'); // ?key=value&key2=value2 => //?key2=value2 , ?key=value&key=value2 => ?key=value
-queryParam.remove('key', ['value1', 'value2']); // ?key=value1&key=value2&key=value3 => ?key=value3
+queryParams.remove('key', 'value'); // ?key=value&key2=value2 => ?key2=value2 , ?key=value&key=value2 => ?key=value
+queryParams.remove('key', ['value1', 'value2']); // ?key=value1&key=value2&key=value3 => ?key=value3
 ```
 
 Push a query parameter to the url
 Add a value to a key
 ```js
-queryParam.push('key', 'value'); // => ?key=value
-queryParam.push('key', 'value2'); // ?key=value => ?key=value1&key=value2
+queryParams.push('key', 'value'); // => ?key=value
+queryParams.push('key', 'value2'); // ?key=value => ?key=value1&key=value2
 ```
 
 Is a parameter set at the url (with a value)
 ```js
-queryParam.has('key'); // ?key=value => true
-queryParam.has('key2'); // ?key=value => false
-queryParam.has('key', 'value'); // ?key=value => true
-queryParam.has('key', 'value2'); // ?key=value => false
+queryParams.has('key'); // ?key=value => true
+queryParams.has('key2'); // ?key=value => false
+queryParams.has('key', 'value'); // ?key=value => true
+queryParams.has('key', 'value2'); // ?key=value => false
 ```
 
 

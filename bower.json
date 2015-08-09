@@ -1,12 +1,12 @@
 {
-  "name": "angular-query-param",
+  "name": "angular-query-params",
   "description": "",
   "version": "0.0.0",
   "main": "",
-  "homepage": "https://github.com/ins87/angular-query-param",
+  "homepage": "https://github.com/ins87/angular-query-params",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ins87/angular-query-param.git"
+    "url": "git://github.com/ins87/angular-query-params.git"
   },
   "license": "MIT",
   "dependencies": {

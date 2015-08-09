@@ -1,22 +1,22 @@
 'use strict';
 
-describe('angularQueryParam', function () {
-  var queryParam,
+describe('angularQueryParams', function () {
+  var queryParams,
     $location;
 
-  beforeEach(module('angularQueryParam'));
+  beforeEach(module('angularQueryParams'));
 
-  beforeEach(inject(function (_$location_, _queryParam_) {
+  beforeEach(inject(function (_$location_, _queryParams_) {
     $location = _$location_;
-    queryParam = _queryParam_;
+    queryParams = _queryParams_;
   }));
 
   it('should be defined', function () {
-    expect(queryParam).toBeDefined();
+    expect(queryParams).toBeDefined();
   });
 
   it('should throw an error if no key given to set', function () {
-    expect(queryParam.set).toThrowError(TypeError);
+    expect(queryParams.set).toThrowError(TypeError);
   });
 
   describe('with single item', function () {
@@ -34,42 +34,42 @@ describe('angularQueryParam', function () {
     it('should set a parameter to the url', function () {
       spyOn($location, 'search');
 
-      queryParam.set(key, value);
+      queryParams.set(key, value);
       expect($location.search).toHaveBeenCalledWith(key, value);
     });
 
     it('should get a parameter from the url', function () {
       spyOn($location, 'search').and.returnValue(searchMock);
 
-      expect(queryParam.get(key)).toEqual(value);
-      expect(queryParam.get(value)).toBeUndefined();
+      expect(queryParams.get(key)).toEqual(value);
+      expect(queryParams.get(value)).toBeUndefined();
     });
 
     it('should tell if a key is set', function () {
       spyOn($location, 'search').and.returnValue(searchMock);
 
-      expect(queryParam.has(key)).toBe(true);
-      expect(queryParam.has(value)).toBe(false);
+      expect(queryParams.has(key)).toBe(true);
+      expect(queryParams.has(value)).toBe(false);
     });
 
     it('should tell if a key is set with a value', function () {
       spyOn($location, 'search').and.returnValue(searchMock);
 
-      expect(queryParam.has(key, value)).toBe(true);
-      expect(queryParam.has(key, key)).toBe(false);
+      expect(queryParams.has(key, value)).toBe(true);
+      expect(queryParams.has(key, key)).toBe(false);
     });
 
     it('should remove a parameter from the url', function () {
       spyOn($location, 'search').and.returnValue({});
 
-      queryParam.remove(key);
+      queryParams.remove(key);
       expect($location.search).toHaveBeenCalledWith(key, undefined);
     });
 
     it('should remove a parameter from the url with a specified value', function () {
       spyOn($location, 'search').and.returnValue(searchMock);
 
-      queryParam.remove(key, value);
+      queryParams.remove(key, value);
       expect($location.search).toHaveBeenCalledWith(key, undefined);
     });
   });
@@ -86,53 +86,53 @@ describe('angularQueryParam', function () {
     it('should push parameters to the url', function () {
       spyOn($location, 'search').and.callThrough();
 
-      queryParam.set(key, value + 1);
-      queryParam.push(key, value + 2);
+      queryParams.set(key, value + 1);
+      queryParams.push(key, value + 2);
       expect($location.search).toHaveBeenCalledWith(key, [value + 1, value + 2]);
 
-      queryParam.push(key, value + 3);
+      queryParams.push(key, value + 3);
       expect($location.search).toHaveBeenCalledWith(key, [value + 1, value + 2, value + 3]);
     });
 
     it('should push single parameter to the url', function () {
       spyOn($location, 'search').and.callThrough();
 
-      queryParam.push(key, value + 1);
+      queryParams.push(key, value + 1);
       expect($location.search).toHaveBeenCalledWith(key, value + 1);
     });
 
     it('should push array as parameter values to the url', function () {
       spyOn($location, 'search').and.callThrough();
 
-      queryParam.push(key, [value + 1, value + 2, value + 3]);
+      queryParams.push(key, [value + 1, value + 2, value + 3]);
       expect($location.search).toHaveBeenCalledWith(key, [value + 1, value + 2, value + 3]);
     });
 
     it('should not push parameter to the url if that parameter is already exists', function () {
       spyOn($location, 'search').and.callThrough();
 
-      queryParam.push(key, value);
+      queryParams.push(key, value);
       expect($location.search).toHaveBeenCalledWith(key, value);
 
-      queryParam.push(key, value);
+      queryParams.push(key, value);
       expect($location.search).toHaveBeenCalledWith(key, value);
     });
 
     it('should remove a parameter from array parameters on a specified key', function () {
-      queryParam.push(key, value + 1);
-      queryParam.push(key, value + 2);
+      queryParams.push(key, value + 1);
+      queryParams.push(key, value + 2);
 
-      queryParam.remove(key, value + 1);
-      expect(queryParam.get(key)).toEqual(value + 2);
+      queryParams.remove(key, value + 1);
+      expect(queryParams.get(key)).toEqual(value + 2);
     });
 
     it('should remove multiple parameters from array parameters on a specified key', function () {
-      queryParam.push(key, value + 1);
-      queryParam.push(key, value + 2);
-      queryParam.push(key, value + 3);
+      queryParams.push(key, value + 1);
+      queryParams.push(key, value + 2);
+      queryParams.push(key, value + 3);
 
-      queryParam.remove(key, [value + 2, value + 3]);
-      expect(queryParam.get(key)).toEqual(value + 1);
+      queryParams.remove(key, [value + 2, value + 3]);
+      expect(queryParams.get(key)).toEqual(value + 1);
     });
   });
 

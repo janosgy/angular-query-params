@@ -2,11 +2,11 @@
 
   'use strict';
 
-  angular.module('angularQueryParam', [])
-    .service('queryParam', QueryParam);
+  angular.module('angularQueryParams', [])
+    .service('queryParams', QueryParams);
 
-  QueryParam.$inject = ['$location'];
-  function QueryParam($location) {
+  QueryParams.$inject = ['$location'];
+  function QueryParams($location) {
     var changeAction,
       handleArray;
 
