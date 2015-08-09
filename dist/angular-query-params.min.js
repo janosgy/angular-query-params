@@ -1,6 +1,6 @@
 /**
  * angular-query-params - 
- * @version v1.0.0
+ * @version v1.0.1
  * @link https://github.com/ins87/angular-query-params
  * @license MIT
  */
