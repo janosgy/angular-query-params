@@ -65,6 +65,13 @@ describe('angularQueryParam', function () {
       queryParam.remove(key);
       expect($location.search).toHaveBeenCalledWith(key, undefined);
     });
+
+    it('should remove a parameter from the url with a specified value', function () {
+      spyOn($location, 'search').and.returnValue(searchMock);
+
+      queryParam.remove(key, value);
+      expect($location.search).toHaveBeenCalledWith(key, undefined);
+    });
   });
 
   describe('with an array', function () {

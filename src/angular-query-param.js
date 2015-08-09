@@ -67,9 +67,16 @@
       }
 
       values = this.get(key) || [];
+      if(!angular.isArray(values)) {
+        values = [values];
+      }
       values = values.filter(function(paramValue) {
         return paramValue !== value;
       });
+
+      if(!values.length) {
+        this.set(key);
+      }
 
       this.set(key, values);
     };
