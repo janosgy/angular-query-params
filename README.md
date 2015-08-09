@@ -42,7 +42,7 @@ Get a query parameter from the url
 Always set value of a key
 ```js
 queryParams.get('key'); // ?key=value => 'value'
-queryParams.set('key2'); // ?key=value => undefined
+queryParams.get('key2'); // ?key=value => undefined
 ```
 
 Remove a query parameter from the url
