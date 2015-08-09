@@ -6,36 +6,18 @@
     .service('queryParam', QueryParam);
 
   function QueryParam($location) {
+    var changeAction,
+      handleArray;
+
     this.set = function set(key, value) {
-      if(!key) {
+      if (!key) {
         throw new TypeError('Missing argument: key');
       }
 
-      if(angular.isArray(value) && value.length === 1) {
+      if (angular.isArray(value) && value.length === 1) {
         value = value[0];
       }
       $location.search(key, value);
-    };
-
-    this.push = function push(key, value) {
-      var values;
-
-      if(angular.isArray(value)) {
-        angular.forEach(value, this.push.bind(this, key));
-        return;
-      }
-
-      if(this.has(key, value)) {
-        return;
-      }
-
-      values = this.get(key) || [];
-      if(!angular.isArray(values)) {
-        values = [values];
-      }
-      values.push(value);
-
-      this.set(key, values);
     };
 
     this.get = function get(key) {
@@ -46,40 +28,62 @@
     this.has = function has(key, value) {
       var currentValue = this.get(key);
 
-      if(!value) {
+      if (!value) {
         return !!currentValue;
       }
 
       return angular.isArray(currentValue) ? currentValue.indexOf(value) !== -1 : currentValue === value;
     };
 
-    this.remove = function remove(key, value) {
-      var values;
-
-      if(angular.isArray(value)) {
-        angular.forEach(value, this.remove.bind(this, key));
+    this.push = function push(key, value) {
+      var handledAsArray = handleArray('push', key, value);
+      if (handledAsArray) {
         return;
       }
+      if (this.has(key, value)) {
+        return;
+      }
+      changeAction('push', key, value, function generateValues(values) {
+        values.push(value);
+        return values;
+      });
+    };
 
-      if(!value) {
+    this.remove = function remove(key, value) {
+      var handledAsArray = handleArray('remove', key, value);
+      if (handledAsArray) {
+        return;
+      }
+      if (!value) {
         this.set(key);
         return;
       }
+      changeAction('remove', key, value, function generateValues(values) {
+        return values.filter(function (paramValue) {
+          return paramValue !== value;
+        });
+      });
+    };
 
-      values = this.get(key) || [];
-      if(!angular.isArray(values)) {
+    handleArray = (function (actionName, key, value) {
+      if (!angular.isArray(value)) {
+        return false;
+      }
+
+      angular.forEach(value, this[actionName].bind(this, key));
+      return true;
+    }).bind(this);
+
+    changeAction = (function changeAction(actionName, key, value, generateValues) {
+      var values = this.get(key) || [];
+
+      if (!angular.isArray(values)) {
         values = [values];
       }
-      values = values.filter(function(paramValue) {
-        return paramValue !== value;
-      });
+      values = generateValues(values);
 
-      if(!values.length) {
-        this.set(key);
-      }
-
-      this.set(key, values);
-    };
+      return values.length ? this.set(key, values) : this.set(key);
+    }).bind(this);
   }
 
 })();
