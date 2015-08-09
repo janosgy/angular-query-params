@@ -55,7 +55,7 @@ Push a query parameter to the url
 Add a value to a key
 ```js
 queryParam.push('key', 'value'); // => ?key=value
-queryParam.push('key', 'value2'); // => ?key=value1,value2
+queryParam.push('key', 'value2'); // ?key=value => ?key=value1,value2
 ```
 
 Is a parameter set at the url (with a value)
