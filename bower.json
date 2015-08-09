@@ -2,7 +2,7 @@
   "name": "angular-query-params",
   "description": "",
   "version": "1.0.0",
-  "main": "",
+  "main": "./dist/angular-query-params.js",
   "homepage": "https://github.com/ins87/angular-query-params",
   "repository": {
     "type": "git",
@@ -14,5 +14,11 @@
   },
   "devDependencies": {
     "angular-mocks": "~1.4.3"
-  }
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ]
 }
