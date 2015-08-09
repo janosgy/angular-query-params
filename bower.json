@@ -1,6 +1,6 @@
 {
   "name": "angular-query-params",
-  "description": "",
+  "description": "An AngularJS service that wraps $location.search with own, simple methods",
   "version": "1.0.1",
   "main": "./dist/angular-query-params.js",
   "homepage": "https://github.com/ins87/angular-query-params",
