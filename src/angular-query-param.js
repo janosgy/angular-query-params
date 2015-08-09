@@ -5,6 +5,7 @@
   angular.module('angularQueryParam', [])
     .service('queryParam', QueryParam);
 
+  QueryParam.$inject = ['$location'];
   function QueryParam($location) {
     var changeAction,
       handleArray;
